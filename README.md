@@ -31,3 +31,42 @@ sudo ufw allow OpenSSH
 **Public IP Address** :
 
 * If you are working on a remote server, ensure that you have the public IP address of the server to access the web services after the LAMP stack is installed.
+* 
+
+## **1. Installing the LAMP Stack**
+
+### **Step 1: Install Apache (Web Server)**
+
+Apache is the web server software responsible for serving web pages. Follow these steps to install and configure Apache:
+
+* **Update the package manager cache** :
+
+```bash
+sudo apt update
+```
+
+* **Install Apache** :
+
+```bash
+sudo apt install apache2 -y
+```
+
+* **Enable and start Apache** :
+
+```bash
+sudo systemctl enable apache2
+sudo systemctl start apache2
+```
+
+* **Verify Apache installation** :
+  * Open a browser and navigate to `http://localhost` or `http://your-server-ip`. You should see the default Apache page.
+
+![Apache](./screenshots/apache2.png)
+
+>>>>>>> e7d0687 (Add Apache installation steps with screenshot)
+>>>>>>>
+>>>>>>
+>>>>>
+>>>>
+>>>
+>>

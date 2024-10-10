@@ -89,3 +89,21 @@ sudo systemctl status mariadb
 ```
 
 ![mariadb](./screenshots/mariadb-active.png)
+
+### **Step 3: Install PHP (Scripting Language)**
+
+PHP is needed to generate dynamic content and interact with the database.
+
+* **Install PHP** :
+
+```bash
+sudo apt install php libapache2-mod-php php-mysql -y
+```
+
+* **Verify PHP installation** :
+
+```bash
+php --version
+```
+
+![PHP](./screenshots/PHP.png)

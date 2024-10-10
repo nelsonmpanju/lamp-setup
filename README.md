@@ -63,10 +63,29 @@ sudo systemctl start apache2
 
 ![Apache](./screenshots/apache2.png)
 
->>>>>>> e7d0687 (Add Apache installation steps with screenshot)
->>>>>>>
->>>>>>
->>>>>
->>>>
->>>
->>
+### **Step 2: Install MySQL or MariaDB (Database Server)**
+
+You can use either MySQL or MariaDB. For this task, we'll install  **MariaDB** :
+
+* **Install MariaDB** :
+
+```bash
+sudo apt install mariadb-server mariadb-client -y
+```
+
+* **Secure MariaDB** :
+  Run the built-in security script to remove weak defaults:
+
+```bash
+sudo mysql_secure_installation
+```
+
+* Follow the prompts to set a root password, remove anonymous users, disallow remote root login, and remove the test database.
+
+* **Verify MariaDB installation** :
+
+```bash
+sudo systemctl status mariadb
+```
+
+![mariadb](./screenshots/mariadb-active.png)

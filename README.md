@@ -107,3 +107,26 @@ php --version
 ```
 
 ![PHP](./screenshots/PHP.png)
+
+### **Step 4: Test PHP with Apache**
+
+To ensure PHP is working properly with Apache:
+
+* **Create a test PHP file** :
+
+```bash
+sudo nano /var/www/html/info.php
+```
+
+   Add the following content to the file
+
+```php
+<?php
+phpinfo();
+?>
+```
+
+* **Test PHP in the browser** :
+  * Navigate to `http://localhost/info.php` or `http://your-server-ip/info.php` in your browser. You should see the PHP info page.
+
+![PHP info](./screenshots/php-info.png)

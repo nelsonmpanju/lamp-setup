@@ -219,3 +219,71 @@ $conn->close();
 ```
 
 * Navigate to `http://localhost/users.php` or `http://your-server-ip/users.php`.
+
+![test db](./screenshots/test_db.png)
+
+## 3. Database Setup and Operations
+
+### Step 1: Create a Sample Database and Tables
+
+* Create a database named `company_db` and two tables:
+
+```sql
+CREATE DATABASE company_db;
+USE company_db;CREATE TABLE employees (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50),
+    position VARCHAR(50)
+);CREATE TABLE departments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50)
+);
+```
+
+### Step 2: Backup Script
+
+* Create a backup script for the `company_db` database:
+
+```bash
+sudo nano /usr/local/bin/backup_company_db.sh
+```
+
+* Add the following content:
+
+```bash
+#!/bin/bash
+
+# Backup directory
+BACKUP_DIR="/var/backups/"
+DATE=$(date +%Y%m%d_%H%M%S)
+DB_NAME="company_db"
+DB_USER="root"
+DB_PASSWORD="your_password" # Update as necessary
+
+# Create a backup
+mysqldump -u $DB_USER -p$DB_PASSWORD $DB_NAME > $BACKUP_DIR$DB_NAME_$DATE.sql
+
+# Delete backups older than 7 days
+find $BACKUP_DIR -name "$DB_NAME_*.sql" -type f -mtime +7 -exec rm {} \;
+
+```
+
+* Make the script executable:
+
+```bash
+sudo chmod +x /usr/local/bin/backup_company_db.sh
+```
+
+### Step 3: Schedule the Backup (Optional)
+
+* You can schedule this script to run daily using cron:
+
+```bash
+sudo crontab -e
+```
+
+* Add the following line to run the backup script every day at 2 AM:
+
+```bash
+0 2 * * * /usr/local/bin/backup_company_db.sh
+```

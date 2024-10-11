@@ -81,7 +81,6 @@ sudo mysql_secure_installation
 ```
 
 * Follow the prompts to set a root password, remove anonymous users, disallow remote root login, and remove the test database.
-
 * **Verify MariaDB installation** :
 
 ```bash
@@ -130,3 +129,93 @@ phpinfo();
   * Navigate to `http://localhost/info.php` or `http://your-server-ip/info.php` in your browser. You should see the PHP info page.
 
 ![PHP info](./screenshots/php-info.png)
+
+## **2. Configuration and Testing**
+
+### **Step 1: Create a Sample Database in MariaDB**
+
+To test the LAMP stack with a database, follow these steps to create a database and table in MariaDB:
+
+* **Log in to MariaDB** :
+
+```bash
+sudo mysql -u root -p
+```
+
+* **Create a database and table** :
+
+```sql
+CREATE DATABASE test_db;
+USE test_db;
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50),
+    email VARCHAR(50)
+);
+```
+
+### Step 2: Insert Sample Data and Display It
+
+*  **Select the Database** :
+  Once you're logged in, select the `test_db` database where the `users` table is located:
+
+```sql
+USE test_db;
+```
+
+* **Insert data into the `users` table** :
+
+```bash
+INSERT INTO users (name, email) VALUES ('John Doe', 'john@example.com'), ('Jane Smith', 'jane@example.com');
+```
+
+*  **Verify the Insert** :
+  You can check that the data was inserted correctly by running:
+
+```sql
+SELECT * FROM users;
+```
+
+*  **Exit MariaDB** :
+
+```sql
+EXIT;
+```
+
+* **Create a PHP script to retrieve and display data** :
+
+```bash
+sudo nano /var/www/html/users.php
+```
+
+* Add the following code:
+
+```php
+<?php
+$servername = "localhost";
+$username = "root"; // Update if necessary
+$password = "your_password"; // Use your root password
+$dbname = "test_db";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "SELECT id, name, email FROM users";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        echo "id: " . $row["id"]. " - Name: " . $row["name"]. " - Email: " . $row["email"]. "<br>";
+    }
+} else {
+    echo "0 results";
+}
+$conn->close();
+?>
+
+```
+
+* Navigate to `http://localhost/users.php` or `http://your-server-ip/users.php`.
